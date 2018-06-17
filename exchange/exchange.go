@@ -72,7 +72,7 @@ func NewExchange(cfg *model.Configuration) (*Exchange, error) {
 }
 
 func (p *Exchange) AutoUpdate() {
-	go p.AutoUpdateTicker()
+	//go p.AutoUpdateTicker()
 	//go p.AutoUpdateBalance()
 	if p.config.AutoCheckOrder {
 		go p.AutoCheckOrders()

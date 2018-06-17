@@ -1,16 +1,21 @@
 package model
 
+const (
+	TaskMode int = iota
+	ScheduleMode
+)
+
 //
 type Configuration struct {
+	Mode                  int     `yaml:"mode"`
 	ReloadInterval        int     `yaml:"reload_interval"`
 	AppKey                string  `yaml:"appkey"`
 	AppSecret             string  `yaml:"appsecret"`
 	Symbol                string  `yaml:"symbol"`
 	SellNumber            float64 `yaml:"sell_number"`
 	MakeUpPercent         int     `yaml:"makeup_percent"`
-	BalancePercent        int     `yaml:"balance_list"`
+	BalancePercent        int     `yaml:"balance_percent"`
 	ExpectValue           float64 `yaml:"expect_value"`
-	ExchangeInterval      int     `yaml:"exchange_interval"`
 	AutoCheckOrder        bool    `yaml:"auto_check_order"`
 	CheckOrderInterval    int64   `yaml:"check_order_interval"`
 	RevokeOrderTime       int64   `yaml:"revoke_order_time"`

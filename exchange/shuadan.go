@@ -65,7 +65,7 @@ func (p *Exchange) AutoShuaDan() {
 			continue
 		}
 
-		price = fmt.Sprintf("%.8f", math.Abs(quote.MaxBuyOnePrice+p.config.ExpectValue))
+		price = fmt.Sprintf("%.8f", math.Abs(quote.MinSellOnePrice-p.config.ExpectValue))
 		number = fmt.Sprintf("%.2f", p.config.SellNumber)
 		p.BuyAndSell(price, number)
 
@@ -151,18 +151,22 @@ func (p *Exchange) MakeUpBalance() error {
 		// 补充base currency
 		log.Logger.Infof("make up %s currency", p.BaseCurrency)
 		quote = p.GetQuote()
-		price = fmt.Sprintf("%.8f", math.Abs(quote.MaxBuyOnePrice+p.config.ExpectValue))
+		price = fmt.Sprintf("%.8f", math.Abs(quote.MinSellOnePrice))
 		amount = fmt.Sprintf("%.2f", p.config.SellNumber*float64(p.config.MakeUpPercent)/100)
 		p.Buy(price, amount)
 		break
 	case 22:
-		//		p.CancelOrderss()
+		go p.CancelOrders()
+		quote = p.GetQuote()
+		price = fmt.Sprintf("%.8f", math.Abs(quote.MinSellOnePrice-p.config.ExpectValue))
+		amount = fmt.Sprintf("%.2f", p.config.SellNumber*float64(p.config.BalancePercent)/100)
+		p.BuyAndSell(price, amount)
 		return nil
 	case 21:
 		// 补充quote currency
 		log.Logger.Infof("make up %s currency", p.QuoteCurrency)
 		quote = p.GetQuote()
-		price = fmt.Sprintf("%.8f", math.Abs(quote.MaxBuyOnePrice+p.config.ExpectValue))
+		price = fmt.Sprintf("%.8f", math.Abs(quote.MaxBuyOnePrice))
 		amount = fmt.Sprintf("%.2f", p.config.SellNumber*float64(p.config.MakeUpPercent)/100)
 		p.Sell(price, amount)
 		break

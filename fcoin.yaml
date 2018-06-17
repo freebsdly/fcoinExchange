@@ -1,3 +1,8 @@
+# 运行模式
+# 0 任务模式，通过定时任务进行刷单
+# 1 调度模式，通过账户余额进行刷单触发
+mode: 0
+
 # 配置文件重新加载的时间间隔，单位毫秒，设置为0则不自动重载配置文件
 reload_interval: 1000
 
@@ -26,9 +31,6 @@ balance_percent: 50
 
 # 期望的差价
 expect_value: 0.00000001
-
-# 交易的周期
-exchange_interval: 1000
 
 # 自动检查当前订单
 auto_check_order: true

@@ -157,7 +157,10 @@ func (p *Exchange) MakeUpBalance() error {
 	case 12:
 		// 补充base currency
 		log.Logger.Infof("make up %s currency", p.BaseCurrency)
-		quote = p.GetQuote()
+		quote, err = p.GetCurrentQuote()
+		if err != nil {
+			return nil
+		}
 		price = fmt.Sprintf("%.8f", math.Abs(quote.MinSellOnePrice))
 		amount = fmt.Sprintf("%.2f", p.config.SellNumber*float64(p.config.MakeUpPercent)/100)
 		p.Buy(price, amount)

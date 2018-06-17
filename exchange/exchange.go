@@ -163,20 +163,18 @@ func (p *Exchange) AutoCheckOrders() {
 						log.Logger.Infof("time d_value: %d", timeDValue)
 						if math.Abs(float64(timeDValue)) > float64(p.config.RevokeOrderTime) {
 							// invoke order
-							go func(id string) {
-								log.Logger.Infof("cancel order id %s", id)
-								var corder *model.CancelOrder
-								corder, err = p.fcclient.CancelOrder(order.Id)
-								if err != nil {
-									log.Logger.Infof("cancel order failed. %s", err)
-									return
-								}
-								if corder.Status != 0 {
-									log.Logger.Infof("cancel order failed. %v", corder)
+							log.Logger.Infof("cancel order id %s", order.Id)
+							var corder *model.CancelOrder
+							corder, err = p.fcclient.CancelOrder(order.Id)
+							if err != nil {
+								log.Logger.Infof("cancel order failed. %s", err)
+							}
+							if corder.Status != 0 {
+								log.Logger.Infof("cancel order failed. %v", corder)
 
-								}
-							}(order.Id)
+							}
 						}
+						time.Sleep(time.Second)
 					}
 				}
 			}

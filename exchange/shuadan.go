@@ -56,7 +56,11 @@ func (p *Exchange) AutoShuaDan() {
 		}
 
 		// 获取行情
-		quote = p.GetQuote()
+		quote, err = p.GetCurrentQuote()
+		if err != nil {
+			log.Logger.Errorf("get quote failed. %s", err)
+			continue
+		}
 
 		// 判断可用账户余额
 		if quoteNumber < (quote.MinSellOnePrice*p.SellNumber) || baseNumber < p.config.SellNumber {
@@ -134,7 +138,10 @@ func (p *Exchange) MakeUpBalance() error {
 		return err
 	}
 
-	quote = p.GetQuote()
+	quote, err = p.GetCurrentQuote()
+	if err != nil {
+		return err
+	}
 
 	if baseTotal > p.config.SellNumber {
 		bflag = 20
@@ -157,7 +164,10 @@ func (p *Exchange) MakeUpBalance() error {
 		break
 	case 22:
 		go p.CancelOrders()
-		quote = p.GetQuote()
+		quote, err = p.GetCurrentQuote()
+		if err != nil {
+			return nil
+		}
 		price = fmt.Sprintf("%.8f", math.Abs(quote.MinSellOnePrice-p.config.ExpectValue))
 		amount = fmt.Sprintf("%.2f", p.config.SellNumber*float64(p.config.BalancePercent)/100)
 		p.BuyAndSell(price, amount)
@@ -165,7 +175,10 @@ func (p *Exchange) MakeUpBalance() error {
 	case 21:
 		// 补充quote currency
 		log.Logger.Infof("make up %s currency", p.QuoteCurrency)
-		quote = p.GetQuote()
+		quote, err = p.GetCurrentQuote()
+		if err != nil {
+			return nil
+		}
 		price = fmt.Sprintf("%.8f", math.Abs(quote.MaxBuyOnePrice))
 		amount = fmt.Sprintf("%.2f", p.config.SellNumber*float64(p.config.MakeUpPercent)/100)
 		p.Sell(price, amount)

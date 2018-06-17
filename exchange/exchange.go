@@ -17,10 +17,10 @@ type Exchange struct {
 	Symbol        string
 	BaseCurrency  string
 	QuoteCurrency string
-	SellNumber    float64
-	ExpectValue   float64
-	Balance       map[string]*model.BalanceContext
-	Quote         *model.Quote
+	//	SellNumber    float64
+	ExpectValue float64
+	Balance     map[string]*model.BalanceContext
+	Quote       *model.Quote
 
 	fcclient *fcoin.Client
 

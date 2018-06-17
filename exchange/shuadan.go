@@ -63,7 +63,7 @@ func (p *Exchange) AutoShuaDan() {
 		}
 
 		// 判断可用账户余额
-		if quoteNumber < (quote.MinSellOnePrice*p.SellNumber) || baseNumber < p.config.SellNumber {
+		if quoteNumber < (quote.MinSellOnePrice*p.config.SellNumber) || baseNumber < p.config.SellNumber {
 			log.Logger.Infof("account balance not enough, go to make up balance")
 			p.MakeUpBalance()
 			continue

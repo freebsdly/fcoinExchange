@@ -2,10 +2,10 @@
 reload_interval: 1000
 
 #
-appkey: "6f2e756123914ce59d6f5988c8c65e57"
+appkey: ""
 
 #
-appsecret: "1dd0eb7aa704450d83f4615cb38a0807"
+appsecret: ""
 
 # fcoin的交易対
 symbol: "ftbtc"

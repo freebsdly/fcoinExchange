@@ -242,11 +242,8 @@ func (p *Exchange) CancelOrders() {
 						corder, err = p.fcclient.CancelOrder(order.Id)
 						if err != nil {
 							log.Logger.Infof("cancel order failed. %s", err)
-							return
-						}
-						if corder.Status != 0 {
+						} else if corder.Status != 0 {
 							log.Logger.Infof("cancel order failed. %v", corder)
-
 						}
 					}
 					time.Sleep(time.Second)

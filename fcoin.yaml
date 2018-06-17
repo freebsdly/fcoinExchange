@@ -1,0 +1,58 @@
+# 配置文件重新加载的时间间隔，单位毫秒，设置为0则不自动重载配置文件
+reload_interval: 1000
+
+#
+appkey: "6f2e756123914ce59d6f5988c8c65e57"
+
+#
+appsecret: "1dd0eb7aa704450d83f4615cb38a0807"
+
+# fcoin的交易対
+symbol: "ftbtc"
+
+# 期望卖出的ft数量
+sell_number: 1000
+
+# 补充余额时用于买入或卖出的base currency 数量系数，该系数乘以
+# sell_number即为补充余额需要买或卖的base currenty数量
+# 值域： 0 ~ 100
+makeup_percent: 20
+
+# 当账户余额进行平衡计算（quote以当前卖一价转换成base)时，如果
+# 平衡计算后的余额不能进行sell_number的买卖，将降低sell_number
+# 此系数用*sell_number即为降低后sell_number的值，其为百分比，
+# 值与为1 ~ 100
+balance_percent: 50
+
+# 期望的差价
+expect_value: 0.00000001
+
+# 交易的周期
+exchange_interval: 1000
+
+# 自动检查当前订单
+auto_check_order: true
+
+# 检查订单的周期,单位毫秒
+check_order_interval: 7000
+
+# 检测订单的创建时间与当前时间的间隔，超过此时间则取消订单，单位毫秒
+revoke_order_time: 14000
+
+# 自动刷单时间间隔，单位毫秒
+shuadan_interval: 5000
+
+# 自动更新行情信息的时间间隔 单位毫秒
+update_ticker_interval: 1000
+
+# 自动更新账户信息的时间间隔 单位毫秒
+update_account_interval: 5000
+
+# 单位毫秒
+request_timeout: 4000
+
+# 日志路经
+log_file: "/tmp/fcoin.log"
+
+# 日志级别
+log_level: "debug"
